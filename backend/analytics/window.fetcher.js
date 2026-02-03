@@ -7,9 +7,8 @@ export async function fetchWindow(machineId, type, windowMs) {
 
 	const results = await redis.zrange(key, from, now, { byScore: true });
 
-	console.log(results);
-
-	return results.map(JSON.parse);
+	// return results.map(JSON.parse);
+	return results;
 }
 
 export async function fetchPrevWindow(machineId, type, startMs, endMs) {
@@ -20,5 +19,6 @@ export async function fetchPrevWindow(machineId, type, startMs, endMs) {
 		byScore: true,
 	});
 
-	return raw.map(JSON.parse);
+	// return raw.map(JSON.parse);
+	return raw;
 }

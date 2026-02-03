@@ -59,7 +59,7 @@ export async function ingestTelemetry(machineId, telemetryArray) {
 	}
 
 	const results = await p.exec();
-	console.log("Pipeline Results:", results);
+	// console.log("Pipeline Results:", results);
 
 	/* ---------- MongoDB ---------- */
 	if (metricDocs.length > 0) {
@@ -71,4 +71,3 @@ export async function ingestTelemetry(machineId, telemetryArray) {
 
 	await Promise.all(tasks);
 }
-
