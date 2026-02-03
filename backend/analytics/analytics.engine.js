@@ -1,4 +1,4 @@
-import { fetchWindow } from "./window.fetcher.js";
+import { fetchPrevWindow, fetchWindow } from "./window.fetcher.js";
 import { analyzeMetrics } from "./metric.analyzer.js";
 import { analyzeEvents } from "./event.analyzer.js";
 import { analyzeEventIds } from "./eventid.analyzer.js";
@@ -11,7 +11,7 @@ export async function runAnalytics(machineId, windowMs) {
 	const events = await fetchWindow(machineId, "events", windowMs);
 
 	const last5Min = await fetchWindow(machineId, "events", 5 * 60 * 1000);
-	const prev5Min = await fetchWindow(
+	const prev5Min = await fetchPrevWindow(
 		machineId,
 		"events",
 		10 * 60 * 1000,

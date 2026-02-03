@@ -11,7 +11,7 @@ export async function ingestTelemetry(machineId, telemetryArray) {
 			const redisKey = `telemetry:${machineId}:metrics`;
 
 			// Redis window insert (sorted by timestamp)
-			await redis.zadd(redisKey, item.timestamp, JSON.stringify(item));
+			await redis.zadd(redisKey, [item.timestamp, JSON.stringify(item)]);
 
 			// Keep last 10 minutes only
 			await redis.zremrangebyscore(redisKey, 0, now - 10 * 60 * 1000);
@@ -31,7 +31,7 @@ export async function ingestTelemetry(machineId, telemetryArray) {
 		if (item.type === "EVENT") {
 			const redisKey = `telemetry:${machineId}:events`;
 
-			await redis.zadd(redisKey, item.timestamp, JSON.stringify(item));
+			await redis.zadd(redisKey, [item.timestamp, JSON.stringify(item)]);
 
 			await redis.zremrangebyscore(redisKey, 0, now - 10 * 60 * 1000);
 
