@@ -29,7 +29,7 @@ router.get("/:machineId", async (req, res) => {
 		// If window is within Redis range (e.g., <= 30 mins), use Redis for speed
 		if (windowMs <= 1800000) {
 			rawData = await redis.zrange(
-				`telemetry:${machineId}:metrics`,
+				`telemetry:${machineId}:events`,
 				from,
 				now,
 				{
