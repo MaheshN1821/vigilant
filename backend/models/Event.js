@@ -14,7 +14,7 @@ const EventSchema = new mongoose.Schema(
 );
 
 EventSchema.index({ machineId: 1 });
-
+// Auto-delete documents 2 hours after creation
 EventSchema.index({ createdAt: 1 }, { expireAfterSeconds: 7200 });
 
 export const Event = mongoose.model("Event", EventSchema);
