@@ -28,5 +28,7 @@ export function analyzeEventIds(events) {
 	// Sort by most frequent first
 	results.sort((a, b) => b.count - a.count);
 
+	console.log("Result from event-id page" + results);
+
 	return results;
 }

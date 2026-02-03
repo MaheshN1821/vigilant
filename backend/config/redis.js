@@ -11,6 +11,8 @@ const redisClient = new Redis({
 // Test connection
 try {
 	await redisClient.ping();
+	const ping = await redisClient.ping();
+	console.log("Redis Connection:", ping);
 	console.log("Connected to Upstash Redis");
 } catch (error) {
 	console.error("Upstash Redis connection error:", error);

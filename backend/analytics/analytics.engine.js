@@ -18,6 +18,8 @@ export async function runAnalytics(machineId, windowMs) {
 		5 * 60 * 1000,
 	);
 
+	console.log("from engine page: ", metrics, "+", events);
+
 	return {
 		windowMs,
 		metricsFindings: analyzeMetrics(metrics),
