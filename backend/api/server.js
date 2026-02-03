@@ -1,9 +1,9 @@
-import express from "express";
+import express, { json } from "express";
 import dotenv from "dotenv";
-import telemetryRoute from "./routes/telemetry.route.js";
-import analyticsRoute from "./routes/analytics.route.js";
+import telemetryRoute from "../routes/telemetry.route.js";
+import analyticsRoute from "../routes/analytics.route.js";
 import cors from "cors";
-import { connectMongo } from "./config/mongo.js";
+import { connectMongo } from "../config/mongo.js";
 
 dotenv.config();
 
@@ -13,6 +13,10 @@ app.use(express.json({ limit: "5mb" }));
 
 app.use("/api/telemetry", telemetryRoute);
 app.use("/api/analytics", analyticsRoute);
+
+app.get("/", (req, res) => {
+	return res.status(200).json({ message: "Backend is running!" });
+});
 
 //Analytic endpoints to call
 // GET /api/analytics/<machineId>?window=30000
@@ -28,3 +32,5 @@ await connectMongo();
 // });
 
 export default app;
+
+// https://vigilant-api-server.vercel.app/
