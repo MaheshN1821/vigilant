@@ -1,19 +1,22 @@
 import redis from "../config/redis.js";
 
 export async function fetchWindow(machineId, type, windowMs) {
-	const now = Date.now();
 	const key = `telemetry:${machineId}:${type}`;
+	const now = Date.now();
+	const from = now - windowMs;
 
-	const raw = await redis.zrangebyscore(key, now - windowMs, now);
+	const results = await redis.zrange(key, from, now, { byScore: true });
 
-	return raw.map(JSON.parse);
+	return results.map(JSON.parse);
 }
 
 export async function fetchPrevWindow(machineId, type, startMs, endMs) {
-    const now = Date.now();
-    const key = `telemetry:${machineId}:${type}`;
+	const now = Date.now();
+	const key = `telemetry:${machineId}:${type}`;
 
-    // Custom time range: startMs to endMs ago
-    const raw = await redis.zrangebyscore(key, now - endMs, now - startMs);
-    return raw.map(JSON.parse);
+	// Custom time range: startMs to endMs ago
+	const raw = await redis.zrange(key, now - endMs, now - startMs, {
+		byScore: true,
+	});
+	return raw.map(JSON.parse);
 }

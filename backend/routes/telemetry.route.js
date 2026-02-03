@@ -11,12 +11,12 @@ router.post("/", async (req, res) => {
 			return res.status(400).json({ error: "Invalid payload" });
 		}
 
-		await ingestTelemetry(machine_id, telemetry);
+		const result = await ingestTelemetry(machine_id, telemetry);
 
-		res.json({ status: "ok" });
+		return res.status(201).json({ status: "ok", info: result });
 	} catch (err) {
 		console.error(err);
-		res.status(500).json({ error: "Ingestion failed" });
+		return res.status(500).json({ error: "Ingestion failed" });
 	}
 });
 
