@@ -2,12 +2,13 @@ import express from "express";
 import dotenv from "dotenv";
 import telemetryRoute from "./routes/telemetry.route.js";
 import analyticsRoute from "./routes/analytics.route.js";
-
+import cors from "cors";
 import { connectMongo } from "./config/mongo.js";
 
 dotenv.config();
 
 const app = express();
+app.use(cors());
 app.use(express.json({ limit: "5mb" }));
 
 app.use("/api/telemetry", telemetryRoute);
@@ -22,23 +23,8 @@ const PORT = process.env.PORT || 3000;
 
 await connectMongo();
 
-app.listen(PORT, () => {
-	console.log(`Backend listening on port ${PORT}`);
-});
-
-// import express from "express";
-// import bodyParser from "body-parser";
-
-// const app = express();
-// app.use(bodyParser.json({ limit: "5mb" }));
-
-// app.post("/api/telemetry", (req, res) => {
-// 	console.log("Telemetry received:");
-// 	// console.log(req.body);
-// 	console.log(JSON.stringify(req.body, null, 2));
-// 	res.send({ status: "ok" });
+// app.listen(PORT, () => {
+// 	console.log(`Backend listening on port ${PORT}`);
 // });
 
-// app.listen(3000, () => {
-// 	console.log("Backend listening on port 3000");
-// });
+export default app;
