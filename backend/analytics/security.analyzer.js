@@ -1,7 +1,7 @@
 export function analyzeSecurity(events) {
-	const failedLogins = events.filter((e) => e.event_id === 4625);
+	const failedLogins = events.filter((e) => e?.event?.event_id === 4625);
 
-	if (failedLogins.length === 0) return null;
+	if (failedLogins.length === 0) return { message: "No Security Events Recorded" };
 
 	return {
 		type: "SECURITY",

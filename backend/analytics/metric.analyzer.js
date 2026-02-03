@@ -15,7 +15,7 @@ export function analyzeMetrics(metrics) {
 				message: "Sustained high CPU usage",
 				value: avgCpu,
 			});
-		} else if (avgCpu > 65) {   
+		} else if (avgCpu > 65) {
 			findings.push({
 				type: "CPU",
 				severity: "WARNING",
@@ -29,7 +29,7 @@ export function analyzeMetrics(metrics) {
 		const avgMem =
 			memory.reduce((a, b) => a + parseFloat(b.value), 0) / memory.length;
 
-		if (avgMem > 90) {
+		if (avgMem > 80) {
 			findings.push({
 				type: "MEMORY",
 				severity: "CRITICAL",

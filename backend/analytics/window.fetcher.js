@@ -7,18 +7,6 @@ export async function fetchWindow(machineId, type, windowMs) {
 
 	const results = await redis.zrange(key, from, now, { byScore: true });
 
-	// return results.map(JSON.parse);
-	return results;
-}
-
-export async function fetchPrevWindow(machineId, type, startMs, endMs) {
-	const now = Date.now();
-	const key = `telemetry:${machineId}:${type}`;
-
-	const raw = await redis.zrange(key, now - endMs, now - startMs, {
-		byScore: true,
-	});
-
-	// return raw.map(JSON.parse);
-	return raw;
+	const afo = Array.from(results);
+	return afo;
 }

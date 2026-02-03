@@ -59,8 +59,7 @@ export async function ingestTelemetry(machineId, telemetryArray) {
 	}
 
 	const results = await p.exec();
-	// console.log("Pipeline Results:", results);
-
+	
 	/* ---------- MongoDB ---------- */
 	if (metricDocs.length > 0) {
 		tasks.push(Metric.insertMany(metricDocs, { ordered: false }));

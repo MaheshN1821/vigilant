@@ -1,7 +1,9 @@
-import express, { json } from "express";
+import express from "express";
 import dotenv from "dotenv";
 import telemetryRoute from "../routes/telemetry.route.js";
 import analyticsRoute from "../routes/analytics.route.js";
+import metricRoute from "../routes/metric.route.js";
+import eventRoute from "../routes/event.route.js";
 import cors from "cors";
 import { connectMongo } from "../config/mongo.js";
 
@@ -13,6 +15,8 @@ app.use(express.json({ limit: "5mb" }));
 
 app.use("/api/telemetry", telemetryRoute);
 app.use("/api/analytics", analyticsRoute);
+app.use("/api/analytics/metrics", metricRoute);
+app.use("/api/analytics/events", eventRoute);
 
 app.get("/", (req, res) => {
 	return res.status(200).json({ message: "Backend is running!" });

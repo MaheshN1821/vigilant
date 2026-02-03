@@ -13,4 +13,8 @@ const EventSchema = new mongoose.Schema(
 	{ timestamps: true },
 );
 
+EventSchema.index({ machineId: 1 });
+
+EventSchema.index({ createdAt: 1 }, { expireAfterSeconds: 7200 });
+
 export const Event = mongoose.model("Event", EventSchema);
