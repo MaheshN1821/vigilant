@@ -1,0 +1,45 @@
+@import "tailwindcss";
+
+@layer base {
+	* {
+		@apply m-0 p-0 box-border;
+	}
+
+	html {
+		@apply scroll-smooth;
+	}
+
+	body {
+		@apply bg-slate-950 text-white font-sans;
+		font-family: "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+	}
+
+	::selection {
+		@apply bg-blue-600 text-white;
+	}
+}
+
+@layer utilities {
+	.text-balance {
+		text-wrap: balance;
+	}
+
+	.gradient-accent {
+		@apply from-blue-600 to-blue-400;
+	}
+
+	.glass {
+		background: rgba(31, 41, 55, 0.8);
+		backdrop-filter: blur(8px);
+	}
+
+	.smooth-transition {
+		@apply transition-all duration-300 ease-in-out;
+	}
+}
+
+/* :root {
+	font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+	line-height: 1.5;
+	font-weight: 400;
+} */
