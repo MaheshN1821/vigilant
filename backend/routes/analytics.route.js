@@ -11,7 +11,9 @@ router.get("/:machineId", async (req, res) => {
 		// Check if machineId exists in DB
 		const machineExists = await Event.findOne({ machineId }).lean();
 		if (!machineExists) {
-			return res.status(404).json({ error: "Machine not found" });
+			return res
+				.status(404)
+				.json({ error: "No Logs found for this machine-id" });
 		}
 
 		const window = Number(req.query.window || 60000); // default 1 min

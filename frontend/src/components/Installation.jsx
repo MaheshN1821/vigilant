@@ -29,9 +29,8 @@ export default function Installation() {
 			color: "emerald",
 			description: "Get your Windows agent from the dashboard",
 			details: [
-				"Log in to the Vigilant Dashboard",
-				"Go to Downloads → Windows Agent",
-				"Download vigilant-agent.exe",
+				"Log in to the Vigilant Portal",
+				"Click on the Download Agent button to download vigilant-agent.exe",
 			],
 			code: null,
 		},

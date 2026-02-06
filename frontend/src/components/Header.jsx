@@ -1,10 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Link } from "react-scroll";
+import { useNavigate } from "react-router-dom";
 
 export default function Header() {
 	const [isOpen, setIsOpen] = useState(false);
+	const [showDownload, setShowDownload] = useState(false);
+	const Navigate = useNavigate();
+
+	useEffect(() => {
+		const token = localStorage.getItem("vigilant-token");
+		setShowDownload(!!token);
+	}, []);
 
 	const navLinks = [
 		{ label: "Features", to: "features" },
@@ -41,14 +49,28 @@ export default function Header() {
 					))}
 				</nav>
 
-				<div className="hidden md:flex items-center gap-4">
-					<button className="px-4 py-2 text-gray-400 hover:text-white smooth-transition hover:bg-white/5 hover:rounded-lg">
-						Sign In
+				{showDownload ? (
+					<button className="hidden md:flex px-6 cursor-pointer py-2 bg-white/10 hover:bg-white/5 text-white rounded-lg font-semibold smooth-transition">
+						<a href="https://github.com/MaheshN1821/vigilant/releases/download/v1.0.0/vigilant-agent.exe">
+							Download Agent
+						</a>
 					</button>
-					<button className="px-6 py-2 bg-white/10 hover:bg-white/5 text-white rounded-lg font-semibold smooth-transition">
-						Get Started
-					</button>
-				</div>
+				) : (
+					<div className="hidden md:flex items-center gap-4">
+						<button
+							onClick={() => Navigate("/auth")}
+							className="px-4 py-2 text-gray-400 hover:text-white smooth-transition hover:bg-white/5 hover:rounded-lg"
+						>
+							Sign In
+						</button>
+						<button
+							onClick={() => Navigate("/auth")}
+							className="px-6 py-2 bg-white/10 hover:bg-white/5 text-white rounded-lg font-semibold smooth-transition"
+						>
+							Get Started
+						</button>
+					</div>
+				)}
 
 				{/* Mobile Menu Button */}
 				<button
@@ -80,14 +102,28 @@ export default function Header() {
 							{link.label}
 						</Link>
 					))}
-					<div className="flex gap-2 pt-2 border-t border-slate-800/50">
-						<button className="flex-1 px-4 py-2 text-gray-200 hover:text-white border border-white/20 rounded-lg">
-							Sign In
+					{showDownload ? (
+						<button className="px-6 cursor-pointer py-2 bg-white/10 hover:bg-white/5 text-white rounded-lg font-semibold smooth-transition">
+							<a href="https://github.com/MaheshN1821/vigilant/releases/download/v1.0.0/vigilant-agent.exe">
+								Download
+							</a>
 						</button>
-						<button className="flex-1 px-4 py-2 bg-white/10 hover:bg-white/5 text-white rounded-lg font-semibold">
-							Get Started
-						</button>
-					</div>
+					) : (
+						<div className="hidden md:flex items-center gap-4">
+							<button
+								onClick={() => Navigate("/auth")}
+								className="px-4 py-2 text-gray-400 hover:text-white smooth-transition hover:bg-white/5 hover:rounded-lg"
+							>
+								Sign In
+							</button>
+							<button
+								onClick={() => Navigate("/auth")}
+								className="px-6 py-2 bg-white/10 hover:bg-white/5 text-white rounded-lg font-semibold smooth-transition"
+							>
+								Get Started
+							</button>
+						</div>
+					)}
 				</motion.nav>
 			)}
 		</motion.header>

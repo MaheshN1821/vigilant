@@ -22,6 +22,7 @@ export async function ingestTelemetry(machineId, telemetryArray) {
 				name: item.name,
 				value: item.value,
 				timestamp: item.timestamp,
+				receivedAt: Date.now(),
 			});
 		} else if (item.type === "EVENT") {
 			eventZSet.push({ score: item.timestamp, member: item });
@@ -34,6 +35,7 @@ export async function ingestTelemetry(machineId, telemetryArray) {
 				eventId: item.event?.event_id,
 				fields: item.event?.fields,
 				timestamp: item.timestamp,
+				receivedAt: Date.now(),
 			});
 		}
 	}
@@ -59,7 +61,7 @@ export async function ingestTelemetry(machineId, telemetryArray) {
 	}
 
 	const results = await p.exec();
-	
+
 	/* ---------- MongoDB ---------- */
 	if (metricDocs.length > 0) {
 		tasks.push(Metric.insertMany(metricDocs, { ordered: false }));

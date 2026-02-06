@@ -23,7 +23,6 @@ export default function Auth() {
 	const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 	const [formData, setFormData] = useState({
 		name: "",
-		// gender: "",
 		email: "",
 		password: "",
 		confirmPassword: "",
@@ -69,18 +68,21 @@ export default function Auth() {
 			return;
 		}
 		try {
-			const redirectTo = location.state?.from?.pathname || "/";
 			if (isLogin) {
 				await login({ email: formData.email, password: formData.password });
+				const machineId = localStorage.getItem("vigilant-machineId");
+				if (!machineId) {
+					navigate("/installation-guide");
+				}
+				navigate("/dashboard");
 			} else {
 				await register({
 					name: formData.name,
-					// gender: formData.gender,
 					email: formData.email,
 					password: formData.password,
 				});
+				window.location.reload();
 			}
-			navigate(redirectTo, { replace: true });
 		} catch (_) {
 			// error is managed in context state;
 		}
@@ -311,7 +313,7 @@ export default function Auth() {
 								{/* Remember Me / Forgot Password */}
 								{isLogin && (
 									<div className="flex items-center justify-between">
-										<label className="flex items-center">
+										{/* <label className="flex items-center">
 											<input
 												type="checkbox"
 												className="w-4 h-4 text-blue-500 bg-white/5 border-white/10 rounded focus:ring-blue-400 focus:ring-2"
@@ -319,7 +321,7 @@ export default function Auth() {
 											<span className="ml-2 text-sm text-black-300">
 												Remember me
 											</span>
-										</label>
+										</label> */}
 										{/* <a
                       href="#"
                       className="text-sm text-blue-400 hover:text-blue-300 transition-colors"

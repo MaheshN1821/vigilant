@@ -2,9 +2,15 @@ import { motion } from "framer-motion";
 import ctaimage from "../assets/images/logo-4.png";
 import { Download, BookOpen, ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 export default function CTA() {
+	const [showDownload, setShowDownload] = useState(false);
 	const Navigate = useNavigate();
+	useEffect(() => {
+		const token = localStorage.getItem("vigilant-token");
+		setShowDownload(!!token);
+	}, []);
 
 	const containerVariants = {
 		hidden: { opacity: 0 },
@@ -76,14 +82,27 @@ export default function CTA() {
 						variants={itemVariants}
 						className="flex flex-col sm:flex-row gap-4 justify-center pt-8"
 					>
-						<motion.button
-							whileHover={{ scale: 1.05 }}
-							whileTap={{ scale: 0.95 }}
-							className="flex items-center justify-center gap-2 px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-lg smooth-transition"
-						>
-							<Download size={20} />
-							Download Agent
-						</motion.button>
+						{showDownload ? (
+							<motion.a
+								href="https://github.com/MaheshN1821/vigilant/releases/download/v1.0.0/vigilant-agent.exe"
+								whileHover={{ scale: 1.05 }}
+								whileTap={{ scale: 0.95 }}
+								className="flex items-center justify-center gap-2 px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-lg smooth-transition"
+							>
+								<Download size={20} />
+								Download Agent
+							</motion.a>
+						) : (
+							<motion.button
+								onClick={() => Navigate("/auth")}
+								whileHover={{ scale: 1.05 }}
+								whileTap={{ scale: 0.95 }}
+								className="flex items-center justify-center gap-2 px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-lg smooth-transition"
+							>
+								<Download size={20} />
+								Download Agent
+							</motion.button>
+						)}
 
 						<motion.button
 							onClick={() => Navigate("/installation-guide")}

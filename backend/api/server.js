@@ -4,6 +4,7 @@ import telemetryRoute from "../routes/telemetry.route.js";
 import analyticsRoute from "../routes/analytics.route.js";
 import metricRoute from "../routes/metric.route.js";
 import eventRoute from "../routes/event.route.js";
+import authRoute from "../routes/auth.route.js";
 import cors from "cors";
 import { connectMongo } from "../config/mongo.js";
 
@@ -13,8 +14,10 @@ const app = express();
 app.use(cors());
 app.use(express.json({ limit: "5mb" }));
 
+app.use("/api/auth", authRoute);
 app.use("/api/telemetry", telemetryRoute);
 app.use("/api/analytics", analyticsRoute);
+app.use("/api/configure/machine-id", authRoute);
 app.use("/api/analytics/metrics", metricRoute);
 app.use("/api/analytics/events", eventRoute);
 
@@ -31,10 +34,10 @@ const PORT = process.env.PORT || 3000;
 
 await connectMongo();
 
-// app.listen(PORT, () => {
-// 	console.log(`Backend listening on port ${PORT}`);
-// });
+app.listen(PORT, () => {
+	console.log(`Backend listening on port ${PORT}`);
+});
 
-export default app;
+// export default app;
 
 // https://vigilant-api-server.vercel.app/

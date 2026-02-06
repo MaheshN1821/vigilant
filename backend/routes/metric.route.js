@@ -11,7 +11,9 @@ router.get("/:machineId", async (req, res) => {
 
 		const machineExists = await Metric.findOne({ machineId }).lean();
 		if (!machineExists) {
-			return res.status(404).json({ error: "Machine not found" });
+			return res
+				.status(404)
+				.json({ error: "No Logs found for this machine-id" });
 		}
 
 		const windowMs = parseInt(req.query.window) || 60000; // Default 1 min
@@ -27,27 +29,18 @@ router.get("/:machineId", async (req, res) => {
 
 		let rawData = [];
 
-		// If window is within Redis range (e.g., <= 30 mins), use Redis for speed
-		if (windowMs <= 1800000) {
-			rawData = await redis.zrange(
-				`telemetry:${machineId}:metrics`,
-				from,
-				now,
-				{
-					byScore: true,
-				},
-			);
-		} else {
-			// Otherwise, fetch from MongoDB (Up to 2-hour limit)
-			rawData = await Metric.find({
-				machineId,
-				timestamp: { $gte: from, $lte: now },
-			}).lean();
-		}
+		rawData = await Metric.find({
+			machineId,
+			receivedAt: { $gte: from, $lte: now },
+		}).lean();
+
+		// console.log(from, now);
+		// console.log(rawData);
 
 		const processed = processAnalytics(rawData, windowMs);
 		return res.status(200).json({ machineId, ...processed });
 	} catch (error) {
+		console.log(error);
 		return res.status(500).json({ error: "Internal server error" });
 	}
 });

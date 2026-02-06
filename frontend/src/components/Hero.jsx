@@ -2,8 +2,17 @@ import { motion } from "framer-motion";
 import { ArrowRight, Download } from "lucide-react";
 import Threads from "./Threads";
 import Orb from "./Orb";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Hero() {
+	const [showDownload, setShowDownload] = useState(false);
+	const Navigate = useNavigate();
+	useEffect(() => {
+		const token = localStorage.getItem("vigilant-token");
+		setShowDownload(!!token);
+	}, []);
+
 	const containerVariants = {
 		hidden: { opacity: 0 },
 		visible: {
@@ -68,6 +77,7 @@ export default function Hero() {
 							top: 80,
 							left: 0,
 						}}
+						className="absolute inset-0 -z-20"
 					>
 						<Threads amplitude={1} distance={0} enableMouseInteraction />
 					</div>
@@ -91,10 +101,23 @@ export default function Hero() {
 							Get Started
 							<ArrowRight size={20} />
 						</button>
-						<button className="flex items-center justify-center gap-2 px-8 py-4 bg-secondary hover:bg-secondary/80 text-white border border-accent/30 font-semibold rounded-lg smooth-transition">
-							<Download size={20} />
-							Download Agent
-						</button>
+						{showDownload ? (
+							<a
+								href="https://github.com/MaheshN1821/vigilant/releases/download/v1.0.0/vigilant-agent.exe"
+								className="flex items-center justify-center gap-2 px-8 py-4 bg-secondary hover:bg-secondary/80 text-white border border-accent/30 font-semibold rounded-lg smooth-transition cursor-pointer"
+							>
+								<Download size={20} />
+								Download Agent
+							</a>
+						) : (
+							<button
+								onClick={() => Navigate("/auth")}
+								className="flex items-center justify-center gap-2 px-8 py-4 bg-secondary hover:bg-secondary/80 text-white border border-accent/30 font-semibold rounded-lg smooth-transition cursor-pointer"
+							>
+								<Download size={20} />
+								Download Agent
+							</button>
+						)}
 					</motion.div>
 				</div>
 			</motion.div>

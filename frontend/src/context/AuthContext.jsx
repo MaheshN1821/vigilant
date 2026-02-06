@@ -4,38 +4,22 @@ import api from "../lib/api";
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
-	const [token, setToken] = useState(() => localStorage.getItem("token"));
+	const [token, setToken] = useState(() =>
+		localStorage.getItem("vigilant-token"),
+	);
 	const [user, setUser] = useState(null);
-	const [loading, setLoading] = useState(true);
+	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState("");
 
 	const clearError = () => setError("");
 
-	// On mount: if token exists, fetch current user
-	useEffect(() => {
-		const init = async () => {
-			try {
-				if (token) {
-					const { data } = await api.get("http://localhost:3000/api/auth/me");
-					setUser(data.user);
-				} else {
-					setUser(null);
-				}
-			} catch (err) {
-				// token invalid/expired
-				localStorage.removeItem("token");
-				setToken(null);
-				setUser(null);
-			} finally {
-				setLoading(false);
-			}
-		};
-		init();
-	}, []); // run once on mount
-
-	const handleAuthResponse = ({ token: jwt, user }) => {
-		localStorage.setItem("token", jwt);
-		setToken(jwt);
+	const handleAuthResponse = ({ token, user }) => {
+		localStorage.setItem("vigilant-token", token);
+		localStorage.setItem("vigilant-email", user?.email);
+		localStorage.setItem("vigilant-username", user?.name);
+		localStorage.setItem("vigilant-userId", user?.userId);
+		localStorage.setItem("vigilant-machineId", user?.machineId);
+		setToken(token);
 		setUser(user);
 		setError("");
 	};
@@ -44,11 +28,14 @@ export const AuthProvider = ({ children }) => {
 		setLoading(true);
 		setError("");
 		try {
-			const { data } = await api.post("http://localhost:3000/api/auth/login", {
+			const data = await api.post("http://localhost:3000/api/auth/login", {
 				email,
 				password,
 			});
-			handleAuthResponse(data);
+			handleAuthResponse({
+				token: data?.data.userData.token,
+				user: data?.data.userData.user,
+			});
 		} catch (err) {
 			const msg = err?.response?.data?.message || "Login failed";
 			setError(msg);
@@ -66,7 +53,6 @@ export const AuthProvider = ({ children }) => {
 				"http://localhost:3000/api/auth/register",
 				{ name, email, password },
 			);
-			handleAuthResponse(data);
 		} catch (err) {
 			const msg = err?.response?.data?.message || "Registration failed";
 			setError(msg);
