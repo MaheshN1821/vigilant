@@ -13,7 +13,21 @@ import { connectMongo } from "../config/mongo.js";
 dotenv.config();
 
 const app = express();
-app.use(cors());
+
+const corsOptions = {
+	origin: "https://task-drab-seven.vercel.app",
+	methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+	allowedHeaders: [
+		"Origin",
+		"X-Requested-With",
+		"Content-Type",
+		"Accept",
+		"Authorization",
+	],
+	credentials: true,
+};
+
+app.use(cors(corsOptions));
 app.use(express.json({ limit: "5mb" }));
 
 app.use("/api/auth", authRoute);
