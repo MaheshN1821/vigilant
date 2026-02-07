@@ -34,8 +34,18 @@ router.get("/:machineId", async (req, res) => {
 			receivedAt: { $gte: from, $lte: now },
 		}).lean();
 
-		// console.log(from, now);
-		// console.log(rawData);
+		if (rawData.length === 0) {
+			const latestRecord = await Metric.findOne({ machineId }).sort({
+				receivedAt: -1,
+			});
+			if (latestRecord) {
+				const lastArrival = latestRecord.receivedAt;
+				rawData = await Metric.find({
+					machineId,
+					receivedAt: { $gte: lastArrival - 60000, $lte: lastArrival },
+				}).lean();
+			}
+		}
 
 		const processed = processAnalytics(rawData, windowMs);
 		return res.status(200).json({ machineId, ...processed });

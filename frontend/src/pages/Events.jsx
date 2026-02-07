@@ -104,7 +104,7 @@ export default function Events() {
 				setFilteredEvents(events);
 			}
 		} catch (err) {
-			console.error("Failed to fetch system events", err);
+			// console.error("Failed to fetch system events", err);
 		}
 	};
 

@@ -33,19 +33,6 @@ router.get("/:machineId", async (req, res) => {
 			receivedAt: { $gte: from, $lte: now },
 		}).lean();
 
-		// If window is within Redis range (e.g., <= 30 mins), use Redis for speed
-		// if (windowMs <= 1800000) {
-		// 	rawData = await redis.zrange(`telemetry:${machineId}:events`, from, now, {
-		// 		byScore: true,
-		// 	});
-		// } else {
-		// 	// Otherwise, fetch from MongoDB (Up to 2-hour limit)
-		// 	rawData = await Event.find({
-		// 		machineId,
-		// 		timestamp: { $gte: from, $lte: now },
-		// 	}).lean();
-		// }
-
 		return res.status(200).json({ machineId, rawData });
 	} catch (error) {
 		return res.status(500).json({ error: "Internal server error" });

@@ -5,6 +5,8 @@ import analyticsRoute from "../routes/analytics.route.js";
 import metricRoute from "../routes/metric.route.js";
 import eventRoute from "../routes/event.route.js";
 import authRoute from "../routes/auth.route.js";
+import eventAnalysisRoute from "../routes/eventAnalysis.route.js";
+import mailRoute from "../routes/mail.route.js";
 import cors from "cors";
 import { connectMongo } from "../config/mongo.js";
 
@@ -20,6 +22,8 @@ app.use("/api/analytics", analyticsRoute);
 app.use("/api/configure/machine-id", authRoute);
 app.use("/api/analytics/metrics", metricRoute);
 app.use("/api/analytics/events", eventRoute);
+app.use("/api/ai/", eventAnalysisRoute);
+app.use("/api/alerts", mailRoute);
 
 app.get("/", (req, res) => {
 	return res.status(200).json({ message: "Backend is running!" });
@@ -34,10 +38,10 @@ const PORT = process.env.PORT || 3000;
 
 await connectMongo();
 
-app.listen(PORT, () => {
-	console.log(`Backend listening on port ${PORT}`);
-});
+// app.listen(PORT, () => {
+// 	console.log(`Backend listening on port ${PORT}`);
+// });
 
-// export default app;
+export default app;
 
 // https://vigilant-api-server.vercel.app/

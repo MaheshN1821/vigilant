@@ -28,7 +28,7 @@ export const AuthProvider = ({ children }) => {
 		setLoading(true);
 		setError("");
 		try {
-			const data = await api.post("http://localhost:3000/api/auth/login", {
+			const data = await api.post("/api/auth/login", {
 				email,
 				password,
 			});
@@ -49,10 +49,11 @@ export const AuthProvider = ({ children }) => {
 		setLoading(true);
 		setError("");
 		try {
-			const { data } = await api.post(
-				"http://localhost:3000/api/auth/register",
-				{ name, email, password },
-			);
+			const { data } = await api.post("/api/auth/register", {
+				name,
+				email,
+				password,
+			});
 		} catch (err) {
 			const msg = err?.response?.data?.message || "Registration failed";
 			setError(msg);
@@ -73,7 +74,7 @@ export const AuthProvider = ({ children }) => {
 		setLoading(true);
 		setError("");
 		try {
-			const { data } = await api.put("http://localhost:3000/api/user/profile", {
+			const { data } = await api.put("/api/user/profile", {
 				name,
 				email,
 			});

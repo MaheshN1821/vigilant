@@ -61,7 +61,7 @@ export default function Metrics() {
 			setData(res?.data);
 			setLastUpdated(new Date());
 		} catch (err) {
-			console.error("Failed to fetch metrics", err);
+			// console.error("Failed to fetch metrics", err);
 		}
 	};
 
@@ -156,7 +156,7 @@ export default function Metrics() {
 		),
 		metricsCard(
 			"Disk Latency",
-			data?.summary?.disk?.avg,
+			data?.summary?.disk?.avg.toFixed(2),
 			"ms",
 			<HardDrive className="w-6 h-6" />,
 			"from-violet-50 to-violet-100",
