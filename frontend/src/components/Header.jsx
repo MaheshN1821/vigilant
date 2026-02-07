@@ -51,7 +51,7 @@ export default function Header() {
 
 				{showDownload ? (
 					<button className="hidden md:flex px-6 cursor-pointer py-2 bg-white/10 hover:bg-white/5 text-white rounded-lg font-semibold smooth-transition">
-						<a href="https://github.com/MaheshN1821/vigilant/releases/download/v1.0.0/vigilant-agent.exe">
+						<a href="https://github.com/MaheshN1821/vigilant/releases/download/v1.0.1/vigilant-agent.exe">
 							Download Agent
 						</a>
 					</button>
@@ -104,7 +104,7 @@ export default function Header() {
 					))}
 					{showDownload ? (
 						<button className="px-6 cursor-pointer py-2 bg-white/10 hover:bg-white/5 text-white rounded-lg font-semibold smooth-transition">
-							<a href="https://github.com/MaheshN1821/vigilant/releases/download/v1.0.0/vigilant-agent.exe">
+							<a href="https://github.com/MaheshN1821/vigilant/releases/download/v1.0.1/vigilant-agent.exe">
 								Download
 							</a>
 						</button>

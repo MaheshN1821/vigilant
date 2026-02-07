@@ -103,7 +103,7 @@ export default function Hero() {
 						</button>
 						{showDownload ? (
 							<a
-								href="https://github.com/MaheshN1821/vigilant/releases/download/v1.0.0/vigilant-agent.exe"
+								href="https://github.com/MaheshN1821/vigilant/releases/download/v1.0.1/vigilant-agent.exe"
 								className="flex items-center justify-center gap-2 px-8 py-4 bg-secondary hover:bg-secondary/80 text-white border border-accent/30 font-semibold rounded-lg smooth-transition cursor-pointer"
 							>
 								<Download size={20} />

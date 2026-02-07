@@ -84,7 +84,7 @@ export default function CTA() {
 					>
 						{showDownload ? (
 							<motion.a
-								href="https://github.com/MaheshN1821/vigilant/releases/download/v1.0.0/vigilant-agent.exe"
+								href="https://github.com/MaheshN1821/vigilant/releases/download/v1.0.1/vigilant-agent.exe"
 								whileHover={{ scale: 1.05 }}
 								whileTap={{ scale: 0.95 }}
 								className="flex items-center justify-center gap-2 px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-lg smooth-transition"
