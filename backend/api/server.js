@@ -15,16 +15,11 @@ dotenv.config();
 const app = express();
 
 const corsOptions = {
-	origin: "https://task-drab-seven.vercel.app",
-	methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-	allowedHeaders: [
-		"Origin",
-		"X-Requested-With",
-		"Content-Type",
-		"Accept",
-		"Authorization",
-	],
+	origin: "https://vigilant-cyberx.vercel.app",
+	methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+	allowedHeaders: ["Content-Type", "Authorization"],
 	credentials: true,
+	maxAge: 86400,
 };
 
 app.use(cors(corsOptions));

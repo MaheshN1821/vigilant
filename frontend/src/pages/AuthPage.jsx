@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import TermsOfServiceModal from "../components/TermsOfServiceModal.jsx";
+import PrivacyPolicyModal from "../components/PrivacyPolicyModal.jsx";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx";
 import {
@@ -17,7 +19,8 @@ export default function Auth() {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const { login, register, loading, error, clearError } = useAuth();
-
+	const [isTosOpen, setIsTosOpen] = useState(false);
+	const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
 	const [isLogin, setIsLogin] = useState(true);
 	const [showPassword, setShowPassword] = useState(false);
 	const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -341,14 +344,30 @@ export default function Auth() {
 										/>
 										<span className="text-sm text-black-300">
 											I agree to the{" "}
-											<a href="#" className="text-blue-400 hover:text-blue-300">
+											<button
+												type="button"
+												onClick={() => setIsTosOpen(true)}
+												className="text-blue-400 hover:text-blue-300"
+											>
 												Terms of Service
-											</a>{" "}
+											</button>{" "}
 											and{" "}
-											<a href="#" className="text-blue-400 hover:text-blue-300">
+											<button
+												type="button"
+												onClick={() => setIsPrivacyOpen(true)}
+												className="text-blue-400 hover:text-blue-300"
+											>
 												Privacy Policy
-											</a>
+											</button>
 										</span>
+										<TermsOfServiceModal
+											isOpen={isTosOpen}
+											onClose={() => setIsTosOpen(false)}
+										/>
+										<PrivacyPolicyModal
+											isOpen={isPrivacyOpen}
+											onClose={() => setIsPrivacyOpen(false)}
+										/>
 									</div>
 								)}
 
