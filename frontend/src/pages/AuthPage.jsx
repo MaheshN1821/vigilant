@@ -75,9 +75,9 @@ export default function Auth() {
 				await login({ email: formData.email, password: formData.password });
 				const machineId = localStorage.getItem("vigilant-machineId");
 				if (!machineId) {
-					navigate("/installation-guide");
+					return navigate("/installation-guide");
 				}
-				navigate("/dashboard");
+				navigate("/");
 			} else {
 				await register({
 					name: formData.name,

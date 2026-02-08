@@ -298,7 +298,7 @@ TASK: Analyze these system events comprehensively and provide structured insight
 		// 	data: analysisResult,
 		// });
 	} catch (error) {
-		console.error(
+		console.log(
 			"Error analyzing logs:",
 			error.response?.data || error.message,
 		);

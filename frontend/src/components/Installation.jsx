@@ -119,9 +119,8 @@ export default function Installation() {
 			details: [
 				"Copy the Agent ID from the file",
 				"Go to Vigilant Dashboard",
-				'Click "Add Device"',
 				"Paste your Agent ID",
-				'Click "Connect"',
+				'Click "Configure Machine"',
 			],
 			code: null,
 		},

@@ -26,6 +26,7 @@ router.get("/:machineId", async (req, res) => {
 		const result = await runAnalytics(machineId, window);
 		return res.status(200).json(result);
 	} catch (error) {
+		console.log(error);
 		return res.status(500).json({ error: "Internal server error" });
 	}
 });

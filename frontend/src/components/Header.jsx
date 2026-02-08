@@ -7,11 +7,14 @@ import { useNavigate } from "react-router-dom";
 export default function Header() {
 	const [isOpen, setIsOpen] = useState(false);
 	const [showDownload, setShowDownload] = useState(false);
+	const [showGuide, setShowGuide] = useState(false);
 	const Navigate = useNavigate();
 
 	useEffect(() => {
 		const token = localStorage.getItem("vigilant-token");
 		setShowDownload(!!token);
+		const machineIDD = localStorage.getItem("vigilant-machineId");
+		setShowGuide(!!machineIDD);
 	}, []);
 
 	const navLinks = [
@@ -50,11 +53,21 @@ export default function Header() {
 				</nav>
 
 				{showDownload ? (
-					<button className="hidden md:flex px-6 cursor-pointer py-2 bg-white/10 hover:bg-white/5 text-white rounded-lg font-semibold smooth-transition">
-						<a href="https://github.com/MaheshN1821/vigilant/releases/download/v1.0.1/vigilant-agent.exe">
-							Download Agent
-						</a>
-					</button>
+					showGuide ? (
+						<button
+							onClick={() => Navigate("/installation-guide")}
+							className="hidden md:flex px-6 cursor-pointer py-2 bg-white/10 hover:bg-white/5 text-white rounded-lg font-semibold smooth-transition"
+						>
+							Installation Guide
+						</button>
+					) : (
+						<button
+							onClick={() => Navigate("/dashboard")}
+							className="hidden md:flex px-6 cursor-pointer py-2 bg-white/10 hover:bg-white/5 text-white rounded-lg font-semibold smooth-transition"
+						>
+							Dashboard
+						</button>
+					)
 				) : (
 					<div className="hidden md:flex items-center gap-4">
 						<button
@@ -103,10 +116,14 @@ export default function Header() {
 						</Link>
 					))}
 					{showDownload ? (
-						<button className="px-6 cursor-pointer py-2 bg-white/10 hover:bg-white/5 text-white rounded-lg font-semibold smooth-transition">
-							<a href="https://github.com/MaheshN1821/vigilant/releases/download/v1.0.1/vigilant-agent.exe">
+						<button
+							onClick={() => Navigate("/dashboard")}
+							className="px-6 cursor-pointer py-2 bg-white/10 hover:bg-white/5 text-white rounded-lg font-semibold smooth-transition"
+						>
+							{/* <a href="https://github.com/MaheshN1821/vigilant/releases/download/v1.0.1/vigilant-agent.exe">
 								Download
-							</a>
+							</a> */}
+							Dashboard
 						</button>
 					) : (
 						<div className="hidden md:flex items-center gap-4">
