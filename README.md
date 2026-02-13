@@ -1,6 +1,6 @@
 # Vigilant
 
-## AI-Powered System Monitoring & Crash Prevention Platform
+## AI-Powered System Monitoring Platform
 
 Vigilant is a proactive, AI-driven system monitoring platform designed to analyze Windows system health in real time and detect potential risks before they lead to crashes or data loss. It combines a lightweight background agent, centralized log processing, and AI-powered anomaly detection to provide actionable insights, risk assessments, and preventive recommendations.
 
