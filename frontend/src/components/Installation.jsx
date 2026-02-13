@@ -31,6 +31,7 @@ export default function Installation() {
 			details: [
 				"Log in to the Vigilant Portal",
 				"Click on the Download Agent button to download vigilant-agent.exe",
+				"To Navigate to dashboard, there is a button at top by clicking it you can navigate to dashboard page, or just append '/dashboard' in exisiting URL",
 			],
 			code: null,
 		},
@@ -209,8 +210,14 @@ export default function Installation() {
 					viewport={{ once: true }}
 					className="inline-block"
 				>
-					<span className="absolute top-6 left-28 px-4 py-2 bg-slate-100 border border-slate-300 rounded-full text-sm font-semibold text-slate-700 tracking-wide">
+					<span className="absolute top-6 left-58 px-4 py-2 bg-slate-100 border border-slate-300 rounded-full text-sm font-semibold text-slate-700 tracking-wide">
 						Installation Guide
+					</span>
+					<span
+						onClick={() => Navigate("/dashboard")}
+						className="absolute top-6 left-29 cursor-pointer px-4 py-2 bg-slate-100 border border-slate-300 rounded-full text-sm font-semibold text-slate-700 tracking-wide"
+					>
+						Dashboard
 					</span>
 					<span
 						onClick={() => Navigate("/")}
