@@ -14,7 +14,7 @@ export default function Header() {
 		const token = localStorage.getItem("vigilant-token");
 		setShowDownload(!!token);
 		const machineIDD = localStorage.getItem("vigilant-machineId");
-		setShowGuide(!!machineIDD);
+		setShowGuide(!machineIDD);
 	}, []);
 
 	const navLinks = [
